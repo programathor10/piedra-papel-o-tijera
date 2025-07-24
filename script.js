@@ -6,77 +6,55 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let choice = prompt("escribe tu eleccion (piedra, papel o tireja):").toLowerCase();
-    if (!['piedra', 'papel', 'tijera'].includes(choice)) {
-        alert("error opcion incorrecta! por favor ingrese piedra, papel, o tijera.");
-        return getHumanChoice();
-    }
+    if (!['piedra', 'papel', 'tijera'].includes(choice)) 
+        {
+            alert("error opcion incorrecta! por favor ingrese piedra, papel, o tijera.");
+            return getHumanChoice();
+        }
     return choice;
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
-function playRound(computerChoice, humanChoice) {
-    if (humanChoice === computerChoice){
-        alert('Es un empate, el bot y vos escogieron ${humanChoice}');
-    } else if(
-        (humanChoice === 'piedra' && computerChoice === 'tijera')||
-        (humanChoice === 'papel' && computerChoice === 'piedra') ||
-        (humanChoice === 'tijera' && computerChoice === 'papel')){
-            humanScore++;
-            alert(`Tu ganas!! ${humanChoice} vence ${computerChoice}.`)
-    } else{
-        computerScore++;
-        alert(`Tu pierdes!! ${computerChoice} vence ${computerChoice}.`)
-    }
-    alert(`Puntaje : Jugador (${humanScore}) || bot (${computerScore})`)
-}
 
 
-let humanSelection= getHumanChoice();
-let computerSelection = getComputerChoice();
+function playGame(){
+    let humanScore = 0;
+    let computerScore = 0;
+    let round = 0;
 
-playRound(humanSelection, computerSelection)
-/*console.log(getComputerChoice());*/
-/*
-let humanScore = 0;
-let computerScore = 0;
-let round = 0;
-
-function playRound() {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    
-    if (humanChoice === computerChoice) {
-        alert(`It's a tie! You both chose ${humanChoice}.`);
-        round = 0;
-    } else if (
-        (humanChoice === 'piedra' && computerChoice === 'scissors') ||
-        (humanChoice === 'papel' && computerChoice === 'piedra') ||
-        (humanChoice === 'tijera' && computerChoice === 'papel')
-    ) {
-        humanScore++;
-        alert(`Tu ganas! ${humanChoice} vence ${computerChoice}.`);
-    } else {
-        computerScore++;
-        alert(`Tu pierdes! ${computerChoice} vence ${humanChoice}.`);
+    function playRound(humanChoice, computerChoice) {
+        if (humanChoice === computerChoice)
+            {
+            alert(`Es un empate, el bot y vos escogieron ${humanChoice}`)
+            round ++;
+            humanScore = humanScore;
+            computerScore = computerScore;
+            } else if(
+            (humanChoice === "piedra" && computerChoice === "tijera")||
+            (humanChoice === "papel" && computerChoice === "piedra") ||
+            (humanChoice === "tijera" && computerChoice === "papel"))
+            {
+                alert(`Tu ganas!! ${humanChoice} vence ${computerChoice}.`)
+                humanScore++;
+                round++;
+            } else
+                {
+                alert(`Tu pierdes!! ${computerChoice} vence ${humanChoice}.`)
+                computerScore++;
+                round++;
+                }
+        alert(`Puntaje : Jugador (${humanScore}) || bot (${computerScore}). Ronda: ${round}`)
     }
     
-    alert(`Puntaje - Jugador: ${humanScore}, Computer: ${computerScore}`);
+    while (humanScore < 5 && computerScore < 5){
+        let humanSelection= getHumanChoice();
+        let computerSelection = getComputerChoice();
 
-    round++;
-    if (round < 1) {
-        playRound();
-    } else {
-        if (humanScore > computerScore) {
-            alert("Felicidades! Has ganado el juego.");
-        } else if (humanScore < computerScore) {
-            alert("Lo siento, has perdido el juego.");
-        } else {
-            alert("El juego termina en empate.");
-        }
-    }    
+        playRound(humanSelection, computerSelection)
+    }
 
+    if (humanScore === 5){
+        alert("Felicitaciones ganaste eljuego!!!");
+    } else if (computerScore === 5){alert("El bot a sido mejor que tu!!!")}
 }
-
-playRound();*/
+playGame()
+ /*la logica de los rounds fue por una mal interpretacion mia, pero me gusto como quedo el trabajo con eso implementado por lo menos ara ir sabiendo cuantas rondas van*/
