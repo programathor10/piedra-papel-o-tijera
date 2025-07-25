@@ -21,29 +21,7 @@ function playGame(){
     let computerScore = 0;
     let round = 0;
 
-    function playRound(humanChoice, computerChoice) {
-        if (humanChoice === computerChoice)
-            {
-            alert(`Es un empate, el bot y vos escogieron ${humanChoice}`)
-            round ++;
-            humanScore = humanScore;
-            computerScore = computerScore;
-            } else if(
-            (humanChoice === "piedra" && computerChoice === "tijera")||
-            (humanChoice === "papel" && computerChoice === "piedra") ||
-            (humanChoice === "tijera" && computerChoice === "papel"))
-            {
-                alert(`Tu ganas!! ${humanChoice} vence ${computerChoice}.`)
-                humanScore++;
-                round++;
-            } else
-                {
-                alert(`Tu pierdes!! ${computerChoice} vence ${humanChoice}.`)
-                computerScore++;
-                round++;
-                }
-        alert(`Puntaje : Jugador (${humanScore}) || bot (${computerScore}). Ronda: ${round}`)
-    }
+
     
     while (humanScore < 5 && computerScore < 5){
         let humanSelection= getHumanChoice();
@@ -56,5 +34,68 @@ function playGame(){
         alert("Felicitaciones ganaste eljuego!!!");
     } else if (computerScore === 5){alert("El bot a sido mejor que tu!!!")}
 }
-playGame()
+
+function playRound(humanChoice, computerChoice) {
+    let humanScore = 0;
+    let computerScore = 0;
+    let resultado = "";
+
+    if (humanChoice === computerChoice)
+            {
+            resultado =`Es un empate, el bot y vos escogieron ${humanChoice}`;
+            humanScore = humanScore;
+            computerScore = computerScore;
+
+            } else if(
+            (humanChoice === "piedra" && computerChoice === "tijera")||
+            (humanChoice === "papel" && computerChoice === "piedra") ||
+            (humanChoice === "tijera" && computerChoice === "papel"))
+            {
+                resultado = `Tu ganas!! ${humanChoice} vence ${computerChoice}.`;
+                humanScore++;
+            } else
+                {
+                resultado = `Tu pierdes!! ${computerChoice} vence ${humanChoice}.`;
+                computerScore++;
+                }
+
+        return resultado;
+    }
+/*playGame()*/
  /*la logica de los rounds fue por una mal interpretacion mia, pero me gusto como quedo el trabajo con eso implementado por lo menos ara ir sabiendo cuantas rondas van*/
+
+const btnPiedra = document.querySelector("#piedra");
+const btnPapel = document.querySelector("#papel");
+const btnTijera = document.querySelector("#tijera");
+const resultadoDiv = document.createElement("div");
+resultadoDiv.id = "resultado";
+document.body.appendChild(resultadoDiv);
+
+btnPiedra.onclick = () => {
+    const computerChoice = getComputerChoice();
+    let resultado = playRound("piedra", computerChoice);
+    resultadoDiv.textContent = resultado;
+    resultadoDiv.style.display = "block";
+    resultadoDiv.style.margin = "10px";
+    resultadoDiv.style.padding = "10px";
+    resultadoDiv.style.backgroundColor = resultado.includes("ganas") ? "lightgreen" : "lightcoral";
+};
+btnPapel.onclick = () => {
+    const computerChoice = getComputerChoice();
+    let resultado = playRound("papel", computerChoice);
+    resultadoDiv.textContent = resultado;
+    resultadoDiv.style.display = "block";
+    resultadoDiv.style.margin = "10px";
+    resultadoDiv.style.padding = "10px";
+    resultadoDiv.style.backgroundColor = resultado.includes("ganas") ? "lightgreen" : "lightcoral";
+};
+btnTijera.onclick = () => {
+    const computerChoice = getComputerChoice();
+    let resultado = playRound("tijera", computerChoice)
+    resultadoDiv.textContent = resultado;
+    resultadoDiv.style.display = "block";
+    resultadoDiv.style.margin = "10px";
+    resultadoDiv.style.padding = "10px";
+    resultadoDiv.style.backgroundColor = resultado.includes("ganas") ? "lightgreen" : "lightcoral";
+};
+
